@@ -1,0 +1,18 @@
+
+#
+# TP-Link TL-WDR5620 Gigabit Edition V9 (OpenWrt custom)
+# 16 MB flash mod (factory 0x0-0x20000 kept), MT7620A + MT7663E PCIe + RTL8367S
+#
+
+define Device/tplink_wdr5620-v9
+  SOC := mt7620a
+  IMAGE_SIZE := 16256k
+  DEVICE_VENDOR := TP-Link
+  DEVICE_MODEL := TL-WDR5620 Gigabit Edition V9 (OpenWrt custom)
+  DEVICE_DTS := mt7620a_tplink_wdr5620-v9
+  DEVICE_PACKAGES := kmod-mt7615e kmod-mt7663-firmware-ap kmod-switch-rtl8367b \
+	kmod-usb2 kmod-usb-ohci luci
+  IMAGES += factory.bin
+  IMAGE/factory.bin := $$(sysupgrade_bin) | pad-rootfs | check-size
+endef
+TARGET_DEVICES += tplink_wdr5620-v9
